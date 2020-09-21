@@ -5,27 +5,36 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'profile/profile.css' %}">
-
 <br>
 
+<!--/profile-->
 
 <div class="container">
 
-    {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {{ message}}
+    <!--messages-->
+    {% if messages %} {% for message in messages %}
+    <div class="tab-pane" id="messages">
+        <div class="alert alert-{{ message.tags }}" role="alert">
+       <button type="button" class="close" data-dismiss="alert">×</button>
+        <div class="alert-icon">
+         <i class="icon-info"></i>
         </div>
-            {% endfor %}
-            {% endif %}
-    <div class="row">
-        <div class="col-lg-4">
+        <div class="alert-message">
+          <span style="font-weight: 700;">{{message}}</span>
+        </div>
+      </div>
+    {% endfor %}{% endif %}
 
+
+    <div class="row">
+
+        <!--profile info-->
+        <div class="col-lg-4">
             <div class="profile-card-4 z-depth-3">
                 <div class="card">
                     <div class="text-right rounded-top" style="background-color: #4DBF1C;">
                         <a href="#" role="button" data-toggle="modal" data-target="#exampleModalCenter">
-                            <img src="{% static 'img/edit.png'%}" style="max-width: 1rem; margin:5px;"></a>
+                            <img src="{% static 'img/edit.png'%}" style="max-width: 7%; margin:5px;"></a>
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -38,24 +47,30 @@
                                         </button>
                                     </div>
 
-                                    <form method="POST"  action="." class="needs-validation"  style="text-align: left;" enctype='multipart/form-data'>
-                                    <div class="modal-body">
+                                    <form method="POST" action="." class="needs-validation" style="text-align: left;"
+                                        enctype='multipart/form-data'>
+                                        <div class="modal-body">
                                             {{form|crispy}}
                                             {% csrf_token %}
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary" name="ProfileForm">Save
+                                                changes</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-body text-center" style="background-color: #4DBF1C;">
                         <div class="user-box">
+                            {%if user.profile.image %}
                             <img src="{{user.profile.image.url}}" alt="user avatar">
+                            {% else %}
+                            <img src="{% static 'img/avatar.png'%}" alt="user avatar">
+                            {% endif %}
                         </div>
                         <h5 class="mb-1 text-white">{{user.profile.first_name}} {{user.profile.last_name}}</h5>
                         <h6 class="text-light">{{ user.username }}</h6>
@@ -111,6 +126,10 @@
                 </div>
             </div>
         </div>
+        <!--/profile info-->
+
+
+        <!--profile table-->
         <div class="col-lg-8">
             <div class="card z-depth-3">
                 <div class="card-body">
@@ -149,56 +168,80 @@
 
                                 </div>
                                 <div class="col-md-12">
-                                    <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span>
+                                    <h5 class="mt-2 mb-3">
+                                        <a data-toggle="modal" data-target="#exampleModal" href="#" role="button"
+                                            class="float-right"><img src="{%static 'img/add.png'%}" width="30rem"></a>
                                         Recent Announcements</h5>
-                                    <table class="table table-hover table-striped">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <strong>Abby</strong> joined ACME Project Team in
-                                                    <strong>`Collaboration`</strong>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <strong>Gary</strong> deleted My Board1 in
-                                                    <strong>`Discussions`</strong>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <strong>Kensington</strong> deleted MyBoard3 in
-                                                    <strong>`Discussions`</strong>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <strong>John</strong> deleted My Board1 in
-                                                    <strong>`Discussions`</strong>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <strong>Skell</strong> deleted his post Look at Why this is.. in
-                                                    <strong>`Discussions`</strong>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <hr>
+
+                                    <!-- Modal -->
+                                    <form method="POST" action=".">
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Create New
+                                                            Announcement</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{form2|crispy}}
+                                                        {% csrf_token %}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary"
+                                                            name="AnnouncementForm">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div>
+                                                <div class="panel-group" id="accordion" role="tablist"
+                                                    aria-multiselectable="true">
+                                                    {% for announcement in announcements %}
+
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" role="tab">
+                                                            <h4 class="panel-title">
+                                                                <a href="#" style="color: white;">
+                                                                    {{announcement.subject}}
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div class="panel-collapse collapse show ">
+                                                            <div class="panel-body">
+                                                                <p>{{announcement.description}}
+                                                                </p>
+                                                                <small>{{announcement.date}}</small>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    {% endfor %}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!--/row-->
                         </div>
+
                         <div class="tab-pane" id="messages">
-                            <div class="alert alert-info alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <div class="alert-icon">
-                                    <i class="icon-info"></i>
-                                </div>
-                                <div class="alert-message">
-                                    <span><strong>Info!</strong> Lorem Ipsum is simply dummy text.</span>
-                                </div>
-                            </div>
+
                             <table class="table table-hover table-striped">
                                 <tbody>
                                     <tr>
@@ -235,14 +278,13 @@
                             </table>
                         </div>
                         <div class="tab-pane" id="edit">
-                            <form method="POST"  action="." class="needs-validation"  style="text-align: left;">
+                            <form method="POST" action="." class="needs-validation" style="text-align: left;">
                                 <div class="modal-body">
-                                        {{form|crispy}}
-                                        {% csrf_token %}
+                                    {{form|crispy}}
+                                    {% csrf_token %}
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
                             </form>
@@ -251,7 +293,11 @@
                 </div>
             </div>
         </div>
+        <!--/profile info-->
 
     </div>
 </div>
+
+
+
 {% endblock content %}

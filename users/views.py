@@ -10,31 +10,42 @@ from .models import *
 def profile(request):
 
     user = request.user
+    announcements = Announcement.objects.filter(user=user).order_by('date').reverse()
 
     if Profile.objects.filter(user=user).exists():    
         profile = Profile.objects.get(user=user)
         form = ProfileForm(instance=profile)
-        if request.method == 'POST':
+        if request.method == 'POST' and 'ProfileForm' in request.POST:
             form = ProfileForm(request.POST,request.FILES,instance=profile)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Profile info updated successfuly')
+                messages.success(request, 'Profile info updated successfuly.')
                 return redirect('profile')
     else:
         form = ProfileForm
         
-        if request.method == 'POST':
+        if request.method == 'POST' and 'ProfileForm' in request.POST:
             form = ProfileForm(request.POST,request.FILES)
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.user = request.user
                 instance.save()
-                messages.success(request, 'Profile info updated successfuly')
+                messages.success(request, 'Profile info updated successfuly.')
                 return redirect('profile')
 
-
+    if request.method == 'POST' and 'AnnouncementForm' in request.POST:
+            form2 = AnnouncementForm(request.POST)
+            if form2.is_valid():
+                instance = form2.save(commit=False)
+                instance.user = request.user
+                instance.save()
+                messages.success(request, 'Announcemen added successfuly')
+                return redirect('profile')
+    form2 = AnnouncementForm
     context = {
         'form':form,
+        'form2':form2,
+        'announcements':announcements,
         }
     return render(request,'users/profile.html',context)
 

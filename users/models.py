@@ -12,3 +12,13 @@ class Profile(models.Model):
     image = models.ImageField()
     def __str__(self):
         return self.first_name+' '+self.last_name
+
+
+class Announcement(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
+    subject = models.CharField(max_length=600)
+    date = models.DateTimeField(auto_now_add=True)
+    description = models.TextField()
+    def __str__(self):
+        return self.user.username
+
