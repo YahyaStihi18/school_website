@@ -1,13 +1,42 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from .models import *
 
 
 
 @login_required()
 def profile(request):
-    return render(request,'users/profile.html')
+
+    user = request.user
+
+    if Profile.objects.filter(user=user).exists():    
+        profile = Profile.objects.get(user=user)
+        form = ProfileForm(instance=profile)
+        if request.method == 'POST':
+            form = ProfileForm(request.POST,request.FILES,instance=profile)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Profile info updated successfuly')
+                return redirect('profile')
+    else:
+        form = ProfileForm
+        
+        if request.method == 'POST':
+            form = ProfileForm(request.POST,request.FILES)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.user = request.user
+                instance.save()
+                messages.success(request, 'Profile info updated successfuly')
+                return redirect('profile')
+
+
+    context = {
+        'form':form,
+        }
+    return render(request,'users/profile.html',context)
 
     
 def register(request):
