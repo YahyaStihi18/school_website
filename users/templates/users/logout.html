@@ -2,15 +2,15 @@
 {% block content %}
 {% load crispy_forms_tags %}
     <br>
-    <div style="max-width: 70%; margin: auto; background-color: white; padding: 10px;text-align: right;">
-        <legend class="border-bottom mb-4">تم تسجيل الخروج بنجاح</legend>
+    <div style="max-width: 70%; margin: auto; background-color: white; padding: 10px;">
+        <legend class="border-bottom mb-4">Loged out</legend>
 
         <div class="border_top pt-3">
             <small class="text-muted">
-                لديك حساب ؟ <a href="{% url 'login'%}">سجل الدخول مجددا</a>
+                you have an accout <a href="{% url 'login'%}">log in </a>
                 <hr>
                
-                <a href="{% url 'index'%}">الصفحة الرئيسية</a>
+                <a href="{% url 'index'%}">home page</a>
 
             </small>
         </div>
