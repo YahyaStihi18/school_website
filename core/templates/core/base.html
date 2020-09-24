@@ -169,6 +169,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
     <script src="{% static 'js/popper.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
@@ -184,6 +185,8 @@
     <script src="{% static 'vendors/counter-up/jquery.counterup.js'%}"></script>
     <script src="{% static 'js/mail-script.js'%}"></script>
     <script src="{% static 'js/theme.js'%}"></script>
+    {% block script %}
+    {% endblock script %}
 
 
 </body>

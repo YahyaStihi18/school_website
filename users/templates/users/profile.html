@@ -246,8 +246,8 @@
 
                         <div class="tab-pane " id="course">
                             <h5 class="mt-2 mb-3">
-                                <a href="#" role="button" class="float-right"><img src="{%static 'img/add.png'%}"
-                                        width="30rem"></a>
+                                <a href="{% url 'add_course' %}" role="button" class="float-right"><img
+                                        src="{%static 'img/add.png'%}" width="30rem"></a>
                                 My Courses</h5>
                             <hr>
                             <div class="d-flex align-content-start flex-wrap">
@@ -312,9 +312,6 @@
                             </div>
                         </div>
 
-
-
-
                         <div class="tab-pane" id="edit">
 
                             <div class="modal-footer">
@@ -322,8 +319,6 @@
                                 <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
-
-
 
                     </div>
                 </div>

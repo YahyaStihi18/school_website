@@ -1,0 +1,111 @@
+{% extends 'core/base.html'%} {% load crispy_forms_tags %} {% load static %}
+{%block content %}
+<link rel="stylesheet" href="{% static 'profile/confirm.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+<section class="course_details_area">
+    <div class="container">
+        <div class="row course_details_inner">
+
+            <div class="col-lg-8">
+                <h3> Upload New Course:</h3>
+                <hr><br>
+                <form method="POST" action="." class="needs-validation" enctype='multipart/form-data'>
+                    {% csrf_token %}
+
+                    <div class="shadow p-3 mb-5 mt-0 bg-white rounded">
+                        <div class="d-flex justify-content-between flex-wrap ">
+                            <div class="ml-2">
+                            <h4>Course Thumbnail:</h4>
+                            <p style="max-width:20rem;"> add a thumbnail picture that you want to show as the cover for for your course.</p>
+                            {{ form.thumbnail }}
+                            </div>
+                            <div>
+                                <img src="{% static 'img/thumb.png'%}" class="img-thumbnail" style="max-width: 14rem;">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="shadow p-3 mb-5 mt-0 bg-white rounded">
+                        <div class="d-flex justify-content-between flex-wrap ">
+                            <div class="ml-2">
+                            <h4>Course Video:</h4>
+                            <p style="max-width:60%;">add your video here, only MP4 formats are allowed.</p>
+                            {{ form.video }}
+                            </div>
+                            <div>
+                                <img src="{% static 'img/video.jpg'%}" class="img-thumbnail" style="max-width: 14rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="progressdiv" class="d-none">
+                        <div class="shadow-sm p-3 mb-5 mt-4 bg-white rounded">
+                            <div class="progress" style="height: 2rem;">
+                                <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated"
+                                    role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 0%">0%</div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="c_details_list shadow p-3 mb-5 mt-5 bg-white rounded">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Title:</label>
+                        {{ form.title}}
+                        <small id="emailHelp" class="form-text text-muted">(Enter a title that covers the
+                            course content comprehensively)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Description:</label>
+                        {{ form.description}}
+                        <small id="emailHelp" class="form-text text-muted">
+                            (Be sure to describe the course content briefly)</small>
+                    </div>
+                    <button id="save_btn" style="width: 100%;height: 3rem;" class="main_btn" type="submit">Save the
+                        Course</button>
+                    <button id="loading_btn" style="width: 100%;height: 3rem;" class="btn btn-success d-none"
+                        type="button" disabled>Uploading...</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Course Details Area =================-->
+<div id="alert_wrapper" class="d-none">
+    <a href="#myModal" data-toggle="modal"><button id="message_button"></button>
+    </a>
+</div>
+<!-- Modal HTML -->
+<!-- Modal HTML -->
+<div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header" style="display: block;">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+                <h4 class="modal-title">Awesome!</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Your Course has been uploaded successfully</p>
+                <p class="text-center">Listed under <a href="{% url 'profile'%}">Profile</a> -> Courses</p>
+            </div>
+
+            <div class="modal-footer">
+                <a href="{% url 'add_course' %}" role="button" class="btn btn-success btn-block">ok</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+{% block script %}
+<script src="{% static 'js/uploader.js' %}"></script>
+
+{% endblock script %}
