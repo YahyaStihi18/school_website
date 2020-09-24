@@ -24,8 +24,6 @@ def add_course(request):
                 instance = form.save(commit=False)
                 instance.user = request.user
                 instance.save()
-                messages.success(request, 'Course saved successfully.')
-                return redirect('profile')
                 
     return render (request,'core/add_course.html',context)
 
