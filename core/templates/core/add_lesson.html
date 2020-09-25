@@ -1,0 +1,95 @@
+{% extends 'core/base.html'%} {% load crispy_forms_tags %} {% load static %}
+{%block content %}
+<link rel="stylesheet" href="{% static 'profile/confirm.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--messages-->
+    {% if messages %} {% for message in messages %}
+    <div class="tab-pane" id="messages">
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <div class="alert-icon">
+                <i class="icon-info"></i>
+            </div>
+            <div class="alert-message">
+                <span style="font-weight: 700;">{{message}}</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}{% endif %}
+
+<section class="course_details_area">
+    <div class="container">
+        <div class="row course_details_inner">
+
+            <div class="col-lg-8">
+                <h3> Upload New Lesson:</h3>
+                <hr><br>
+                <form method="POST" action="." class="needs-validation" enctype='multipart/form-data'>
+                    {% csrf_token %}
+
+                    <div class="shadow p-3 mb-5 mt-0 bg-white rounded">
+                        <div class="d-flex justify-content-between flex-wrap ">
+                            <div class="ml-2">
+                            <h4>Document:</h4>
+                            <p style="max-width:20rem;"> Add your Document here, only (Word,Exel,Pdf) formats are allowed.</p>
+                            
+                            {{ form.document }}  
+                            </div>
+                            <div>
+                                <img src="{% static 'img/doc.jpg'%}" class="img-thumbnail" style="max-width: 14rem;">
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <div class="col-lg-4">
+                <div class="c_details_list shadow p-3 mb-5 mt-5 bg-white rounded">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Title:</label>
+                        {{form.title}}
+                        <small id="emailHelp" class="form-text text-muted">(Enter a title that covers the
+                            Lesson content comprehensively)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Description:</label>
+                        {{form.description}}
+                        <small id="emailHelp" class="form-text text-muted">
+                            (Be sure to describe the Lesson content briefly)</small>
+                    </div>
+                    <button onclick="check_ex()" id="save_btn" style="width: 100%;height: 3rem;" class="main_btn" type="submit">Save
+                        Lesson</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Course Details Area =================-->
+<script>
+
+function check_ex() {
+    var list = ['pdf','docx','doc','xml','xlsx']
+  var fullPath  = document.getElementById("id_document").value;
+  if (fullPath) {
+    var startIndex =
+      fullPath.indexOf("\\") >= 0
+        ? fullPath.lastIndexOf("\\")
+        : fullPath.lastIndexOf("/");
+    var filename = fullPath.substring(startIndex);
+    if (filename.indexOf("\\") === 0 || filename.indexOf("/") === 0) {
+      filename = filename.substring(1);
+    }
+    var x = filename.split('.').pop();
+    if ( list.includes(x) == false ) {
+      alert(x +' format is not allowed, use only files with (word,exel,pdf) extensions');
+      location.reload()
+    };
+    
+  }
+}
+
+</script>
+
+
+{% endblock content %}

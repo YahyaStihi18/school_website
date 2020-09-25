@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from .forms import *
 from .models import *
-from core.models import Course
+from core.models import Course,Lesson
 
 
 
@@ -14,6 +14,8 @@ def profile(request):
     user = request.user
     announcements = Announcement.objects.filter(user=user).order_by('date').reverse()
     courses = Course.objects.filter(user=user).order_by('date').reverse()
+    lessons = Lesson.objects.filter(user=user).order_by('date').reverse()
+
     if Profile.objects.filter(user=user).exists():    
         profile = Profile.objects.get(user=user)
         form = ProfileForm(instance=profile)
@@ -48,6 +50,7 @@ def profile(request):
         'form':form,
         'form2':form2,
         'courses':courses,
+        'lessons':lessons,
         'announcements':announcements,
         }
     return render(request,'users/profile.html',context)

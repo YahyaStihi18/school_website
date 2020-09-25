@@ -2,8 +2,7 @@ from django.shortcuts import render,HttpResponseRedirect,redirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
-from .forms import CourseForm
-
+from .forms import CourseForm,LessonForm
 from .models import *
 
 def index(request):
@@ -28,6 +27,24 @@ def add_course(request):
     return render (request,'core/add_course.html',context)
 
 
+@login_required
+def add_lesson(request):
+    user = request.user
+    form = LessonForm
+    context = {
+        'form':form,
+    }
+    if request.method == 'POST':
+            form = LessonForm(request.POST,request.FILES)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.user = request.user
+                instance.save()
+                messages.success(request,"Lesson added successfully")
+                return redirect('profile')
+                
+    return render (request,'core/add_lesson.html',context)
+
 
 @login_required
 def delete_course(request,pk):
@@ -41,3 +58,13 @@ def delete_course(request,pk):
         raise PermissionDenied()
 
 
+@login_required
+def delete_lesson(request,pk):
+    user = request.user
+    lesson = Lesson.objects.get(pk=pk)
+    if lesson.user == user :
+        lesson.delete() 
+        messages.warning(request, 'Lesson deleted successfully!.')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    else:
+        raise PermissionDenied()

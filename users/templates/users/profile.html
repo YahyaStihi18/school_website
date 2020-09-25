@@ -313,10 +313,70 @@
                         </div>
 
                         <div class="tab-pane" id="edit">
+                            <h5 class="mt-2 mb-3">
+                                <a href="{% url 'add_lesson' %}" role="button" class="float-right"><img
+                                        src="{%static 'img/add.png'%}" width="30rem"></a>
+                                My Lessons</h5>
+                            <hr>
+                            <div>
+                                {% for lesson in lessons %}
+                                <div class="shadow p-1 mb-2 bg-white rounded">
+                                    <div class="d-flex justify-content-between flex-wrap ">
+                                        <div class="ml-2" style="padding-top: 1rem;">
+                                            <h6>{{lesson.title}}</h6>
+                                            <small>{{lesson.date}}</small>
+                                        </div>
+                                        <div style="text-align: right;padding: 10px;">
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <ul class="list-inline m-0">
+                                                <li class="list-inline-item ">
+                                                    <button class="btn btn-primary btn-sm" style="border-radius:25px;"
+                                                        type="button" data-toggle="tooltip" data-placement="top"
+                                                        title="View"><i class="fa fa-eye"></i></button>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <button class="btn btn-success btn-sm " style="border-radius:25px;"
+                                                        type="button" data-toggle="tooltip" data-placement="top"
+                                                        title="Edit"><i class="fa fa-edit"></i></button>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#myModal2" data-toggle="modal"><button
+                                                            class="btn btn-danger btn-sm " style="border-radius:25px;"
+                                                            type="button" data-toggle="tooltip" data-placement="top"
+                                                            title="Delete"><i class="fa fa-trash"></i></button></a>
+                                                    <!-- Modal HTML -->
+                                                    <div id="myModal2" class="modal fade">
+                                                        <div class="modal-dialog modal-confirm">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header flex-column">
+                                                                    <div class="icon-box">
+                                                                        <i class="material-icons">&#xE5CD;</i>
+                                                                    </div>
+                                                                    <h4 class="modal-title w-100">Are you sure?</h4>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal"
+                                                                        aria-hidden="true">&times;</button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>Do you really want to delete these records? This
+                                                                        process cannot be undone.</p>
+                                                                </div>
+                                                                <div class="modal-footer justify-content-center">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Cancel</button>
+                                                                    <a href="{% url 'delete_lesson' lesson.pk %}"><button type="button"
+                                                                            class="btn btn-danger">Delete</button></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
 
@@ -326,6 +386,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
