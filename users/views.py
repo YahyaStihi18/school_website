@@ -6,16 +6,12 @@ from .forms import *
 from .models import *
 from core.models import Course,Lesson
 
-
-
 @login_required()
 def profile(request):
-
     user = request.user
     announcements = Announcement.objects.filter(user=user).order_by('date').reverse()
     courses = Course.objects.filter(user=user).order_by('date').reverse()
     lessons = Lesson.objects.filter(user=user).order_by('date').reverse()
-
     if Profile.objects.filter(user=user).exists():    
         profile = Profile.objects.get(user=user)
         form = ProfileForm(instance=profile)

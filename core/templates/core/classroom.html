@@ -1,0 +1,114 @@
+{% extends 'core/base.html'%}
+
+{% load static %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/classroom.css' %}">
+
+<!--================Blog Area =================-->
+<section class="blog_area" style="margin-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog_left_sidebar">
+                    <div class="row blog_item">
+
+                        <!-- Section: Live preview -->
+                        <div style="min-width: 100%;">
+                            <section>
+
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                            aria-controls="home" aria-selected="false">Teachers</a>
+                                    </li>
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile"
+                                            role="tab" aria-controls="profile" aria-selected="false">Courses</a>
+                                    </li>
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link " id="contact-tab" data-toggle="tab" href="#contact"
+                                            role="tab" aria-controls="contact" aria-selected="true">Lessons</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        hi
+
+                                    </div>
+                                    <div class="tab-pane fade active show" id="profile" role="tabpanel"
+                                        aria-labelledby="profile-tab">
+                                        <div class="d-flex align-content-start flex-wrap mt-3">
+
+
+                                            {% for course in courses %}
+                                            <div class="shadow p-1 m-3 bg-white rounded">
+                                                <div class="card" style="width: 21rem;">
+                                                    <img class="card-img-top" src="{{course.thumbnail.url}}"
+                                                        alt="Card image cap" style="height: 9rem;">
+                                                    <img class="fb-image-profile"
+                                                        src="{{course.user.profile.image.url}}">
+
+                                                    <div class="card-body " style="text-align: center; height:4rem;">
+                                                        <a class="a" href="#"><h5>{{course.title}}</h5></a>
+                                                    </div>
+                                                    <div class="ml-3 mb-1">
+                                                       <small> {{course.date}}| by: {{ course.user.profile.first_name}} {{ course.user.profile.last_name}}</small>                                               
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade " id="contact" role="tabpanel"
+                                        aria-labelledby="contact-tab">
+                                        kiw
+                                    </div>
+                                </div>
+
+                            </section>
+                        </div>
+                        <!-- Section: Live preview -->
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search Posts">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
+                            </span>
+                        </div><!-- /input-group -->
+                        <div class="br"></div>
+                    </aside>
+
+                    <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title" style="border-radius: 25px;">Latest Announcements:</h3>
+                        {% for announcement in announcements %}
+                        <div class="media post_item">
+                            <img style="border-radius:50px;width: 3rem;" src="{{ announcement.user.profile.image.url }}" alt="post">
+                            <div class="media-body" style="max-width: 15rem;">
+                                    <h3 style="color: #4dbf1c;">{{announcement.subject}}</h3>
+                                <p style="font-weight: 700;">{{announcement.description}}</p>
+                                <small>{{announcement.date}}</small>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endfor %}
+                        </aside>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================Blog Area =================-->
+{% endblock content %}

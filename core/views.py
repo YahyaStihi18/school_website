@@ -4,9 +4,19 @@ from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from .forms import CourseForm,LessonForm
 from .models import *
+from users.models import Announcement
 
 def index(request):
     return render(request,'core/index.html')
+
+def classroom(request):
+    courses = Course.objects.all()
+    announcements = Announcement.objects.all().order_by('date').reverse()
+    context = {
+        'courses':courses,
+        'announcements':announcements,
+    }
+    return render(request,'core/classroom.html',context)
 
 
 

@@ -1,0 +1,47 @@
+.fb-profile img.fb-image-lg{
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 1px;
+  margin-top: 5px;
+  margin-left: -14px;
+}
+
+.fb-image-profile
+{
+  
+  margin: -2rem 0rem 0px 1rem;
+  width: 4rem;
+  border-radius: 50px;
+  background-color: white;
+  padding: 2px; 
+}
+
+@media (max-width:768px)
+{
+  
+.fb-profile-text>h1{
+  font-weight: 700;
+  font-size:16px;
+}
+
+.fb-image-profile
+{
+  margin: -45px 10px 0px 25px;
+  z-index: 9;
+  width: 20%; 
+}
+}
+
+.a {
+  position: relative;
+  display: inline-block;
+  font-weight: 800;
+  color: #757575;
+  overflow: hidden;
+  text-decoration: none;
+  
+  }
+
+.a:hover{
+  color: #4DBF1C;
+}
