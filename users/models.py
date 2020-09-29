@@ -1,4 +1,5 @@
 from django.db import models
+from core.models import Course
 from django.contrib.auth.models import User
 
 class Profile(models.Model):
@@ -12,6 +13,7 @@ class Profile(models.Model):
     image = models.ImageField()
     def __str__(self):
         return self.first_name+' '+self.last_name
+    
 
 
 class Announcement(models.Model):

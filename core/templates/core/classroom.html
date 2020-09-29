@@ -1,13 +1,14 @@
 {% extends 'core/base.html'%}
+{% load crispy_forms_tags %}
 
 {% load static %}
 
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'profile/profile.css' %}">
 
 <link rel="stylesheet" href="{% static 'css/classroom.css' %}">
 
-<!--================Blog Area =================-->
 <section class="blog_area" style="margin-top: 10px;">
     <div class="container">
         <div class="row">
@@ -21,11 +22,11 @@
 
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item waves-effect waves-light">
-                                        <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab"
-                                            aria-controls="home" aria-selected="false">Teachers</a>
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
+                                            role="tab" aria-controls="home" aria-selected="false">Teachers</a>
                                     </li>
                                     <li class="nav-item waves-effect waves-light">
-                                        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile"
+                                        <a class="nav-link " id="profile-tab" data-toggle="tab" href="#profile"
                                             role="tab" aria-controls="profile" aria-selected="false">Courses</a>
                                     </li>
                                     <li class="nav-item waves-effect waves-light">
@@ -34,11 +35,58 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        hi
+                                    <div class="tab-pane fade  active show" id="home" role="tabpanel"
+                                        aria-labelledby="home-tab">
+                                        <div class="d-flex align-content-start flex-wrap mt-3">
+                                            {% for teacher in teachers%}
+                                            <!--profile info-->
+                                            <div class="col-lg-4 mt-3 mb-3">
+                                                <div class="profile-card-4 z-depth-3">
+                                                    <div class="card">
+                                                        <div class="card-body text-center"
+                                                            style="background-color: #4DBF1C;">
+                                                            <div class="user-box">
+                                                                {%if teacher.profile.image %}
+                                                                <img height="110rem" src="{{teacher.profile.image.url}}"
+                                                                    alt="user avatar">
+                                                                {% else %}
+                                                                <img src="{% static 'img/avatar.png'%}"
+                                                                    alt="user avatar">
+                                                                {% endif %}
+                                                            </div>
+                                                            <h5 class="mb-1 text-white">{{teacher.profile.first_name}}
+                                                                {{teacher.profile.last_name}}</h5>
+                                                            <h6 class="text-light">{{ teacher.profile.specialty }}</h6>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="row text-center mt-2">
+                                                                <div class="col p-2">
+                                                                    <h4 class="mb-1 line-height-5">
+                                                                        {{ teacher.total_course }}</h4>
+                                                                    <small class="mb-0 font-weight-bold">Courses</small>
+                                                                </div>
+                                                                <div class="col p-2">
+                                                                    <h4 class="mb-1 line-height-5">
+                                                                        {{ teacher.total_lesson}}</h4>
+                                                                    <small class="mb-0 font-weight-bold">lessons</small>
+                                                                </div>
+                                                                <!--
+                                                            <div class="col p-2">
+                                                                <h4 class="mb-1 line-height-5">9.1k</h4>
+                                                                <small class="mb-0 font-weight-bold">Student</small>
+                                                            </div>-->
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/profile info-->
+                                            {% endfor %}
+                                        </div>
 
                                     </div>
-                                    <div class="tab-pane fade active show" id="profile" role="tabpanel"
+                                    <div class="tab-pane fade" id="profile" role="tabpanel"
                                         aria-labelledby="profile-tab">
                                         <div class="d-flex align-content-start flex-wrap mt-3">
 
@@ -48,14 +96,21 @@
                                                 <div class="card" style="width: 21rem;">
                                                     <img class="card-img-top" src="{{course.thumbnail.url}}"
                                                         alt="Card image cap" style="height: 9rem;">
-                                                    <img class="fb-image-profile"
+                                                    <img height="65rem" class="fb-image-profile"
                                                         src="{{course.user.profile.image.url}}">
 
                                                     <div class="card-body " style="text-align: center; height:4rem;">
-                                                        <a class="a" href="#"><h5>{{course.title}}</h5></a>
+                                                        <a class="a" href="{% url 'view_course' course.pk %}">
+                                                            <h5>{{course.title}}</h5>
+                                                        </a>
                                                     </div>
                                                     <div class="ml-3 mb-1">
-                                                       <small> {{course.date}}| by: {{ course.user.profile.first_name}} {{ course.user.profile.last_name}}</small>                                               
+                                                        <small> {{course.date}}| by: {{ course.user.profile.first_name}}
+                                                            {{ course.user.profile.last_name}}</small>
+                                                            <a href="{% url 'view_course' course.pk %}"> <button class="btn btn-primary btn-sm mr-2"
+                                                            style="border-radius:25px; float: right;" type="button"
+                                                            data-toggle="tooltip" data-placement="top" title="View"><i
+                                                                class="fa fa-eye"></i></button></a>
                                                     </div>
 
                                                 </div>
@@ -65,7 +120,31 @@
                                     </div>
                                     <div class="tab-pane fade " id="contact" role="tabpanel"
                                         aria-labelledby="contact-tab">
-                                        kiw
+                                        <div class="mt-3">
+                                            {% for lesson in lessons %}
+                                            <div class="shadow p-1 mb-2 bg-white rounded">
+                                                <div class="d-flex justify-content-between flex-wrap ">
+                                                    <div class="ml-2" style="padding-top: 1rem;">
+                                                        <h6>{{lesson.title}}</h6>
+                                                        <small>{{lesson.date}} | by: {{lesson.user.profile.first_name}}
+                                                            {{lesson.user.profile.last_name}}</small>
+                                                    </div>
+                                                    <div style="text-align: right;padding: 10px;">
+
+                                                        <ul class="list-inline m-0">
+                                                            <li class="list-inline-item ">
+                                                                <a href="{% url 'view_lesson' lesson.pk %}"><button class="btn btn-primary btn-sm"
+                                                                    style="border-radius:25px;" type="button"
+                                                                    data-toggle="tooltip" data-placement="top"
+                                                                    title="View"><i class="fa fa-eye"></i></button></a>
+                                                            </li>
+                                                        </ul>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -94,16 +173,17 @@
                         <h3 class="widget_title" style="border-radius: 25px;">Latest Announcements:</h3>
                         {% for announcement in announcements %}
                         <div class="media post_item">
-                            <img style="border-radius:50px;width: 3rem;" src="{{ announcement.user.profile.image.url }}" alt="post">
+                            <img style="border-radius:50px;width: 3rem;" src="{{ announcement.user.profile.image.url }}"
+                                alt="post">
                             <div class="media-body" style="max-width: 15rem;">
-                                    <h3 style="color: #4dbf1c;">{{announcement.subject}}</h3>
+                                <h3 style="color: #4dbf1c;">{{announcement.subject}}</h3>
                                 <p style="font-weight: 700;">{{announcement.description}}</p>
                                 <small>{{announcement.date}}</small>
                             </div>
                         </div>
                         <hr>
                         {% endfor %}
-                        </aside>
+                    </aside>
 
                 </div>
             </div>

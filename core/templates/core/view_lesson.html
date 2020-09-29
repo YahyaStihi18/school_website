@@ -1,0 +1,56 @@
+{% extends 'core/base.html'%}
+{% load static %}
+{%block content %}
+
+<section class="course_details_area">
+    <div class="container">
+        <div class="row course_details_inner">
+
+            <div class="col-lg-8">
+                <h3> Lesson:</h3>
+                <hr><br>
+                <div class="shadow p-3 mb-5 mt-0 bg-white rounded">
+                    <div class="d-flex justify-content-between flex-wrap ">
+                        <div class="ml-2">
+                        <h4>Document:</h4>
+                        <p style="max-width:20rem;">This document will be downloaded to your device as soon as you press the download button</p>
+                        
+                        <a class="btn btn-outline-success" href="{{lesson.document.url}}"><span>Download</span></a>
+                        </div>
+                        <div>
+                            <img src="{% static 'img/doc.jpg'%}" class="img-thumbnail" style="max-width: 14rem;">
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-lg-4">
+                <div class="c_details_list shadow p-3 mb-5 mt-5 bg-white rounded">
+                    <div class="form-group">                      
+                        
+                        <label for="exampleInputEmail1">
+                            <h4>Title:</h4>
+                        </label>
+
+                        <strong class="form-text text-muted">{{ lesson.title}}</strong>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">
+                            <h4>Description:</h4>
+                        </label>
+                        <p class="form-text text-muted">
+                            {{ lesson.description}}
+                        </p>
+                    </div>
+                    <!--<button id="save_btn" style="width: 100%;height: 3rem;" class="main_btn" type="submit">Save
+                        Course</button>
+                    <button id="loading_btn" style="width: 100%;height: 3rem;" class="btn btn-success d-none"
+                        type="button" disabled>Uploading...</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

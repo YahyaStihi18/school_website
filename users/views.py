@@ -5,10 +5,13 @@ from django.core.exceptions import PermissionDenied
 from .forms import *
 from .models import *
 from core.models import Course,Lesson
+from django.db.models import Count
+
 
 @login_required()
 def profile(request):
     user = request.user
+    totals = User.objects.filter(username=user).annotate(total_course=Count('course',distinct=True)).annotate(total_lesson=Count('lesson',distinct=True))
     announcements = Announcement.objects.filter(user=user).order_by('date').reverse()
     courses = Course.objects.filter(user=user).order_by('date').reverse()
     lessons = Lesson.objects.filter(user=user).order_by('date').reverse()
@@ -48,6 +51,7 @@ def profile(request):
         'courses':courses,
         'lessons':lessons,
         'announcements':announcements,
+        'totals':totals,
         }
     return render(request,'users/profile.html',context)
 

@@ -9,8 +9,11 @@ class Course(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     thumbnail = models.ImageField(default='teaching.jpg',blank=True,null=True)
     video = models.FileField(upload_to='video',validators=[validate_file_extension])
+    
     def __str__(self):
         return self.title
+
+
 
 class Lesson(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
