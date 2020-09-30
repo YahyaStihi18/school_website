@@ -107,13 +107,9 @@
                             <div class="col p-2">
                                 <h4 class="mb-1 line-height-5">{{ total.total_lesson}}</h4>
                                 <small class="mb-0 font-weight-bold">lessons</small>
-                            </div><!--
-                            <div class="col p-2">
-                                <h4 class="mb-1 line-height-5">9.1k</h4>
-                                <small class="mb-0 font-weight-bold">Student</small>
-                            </div>-->
-                            {% endfor %}
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
                     <div class="card-footer text-center">
                         <a href="javascript:void()" class="btn-social btn-facebook waves-effect waves-light m-1"><i
@@ -209,15 +205,14 @@
                                     </form>
 
 
-                                    <div class="container">
-                                        <div class="row">
+                      
                                             <div class="panel-group" id="accordion" role="tablist"
                                                 aria-multiselectable="true">
                                                 {% for announcement in announcements %}
 
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading" role="tab">
-                                                        <h4 class="panel-title" style="min-width:42rem;">
+                                                        <h4 class="panel-title">
                                                             <a href="{% url 'delete_announcement' announcement.pk %}"
                                                                 style="color: white;">
                                                                 {{announcement.subject}}
@@ -225,7 +220,7 @@
                                                         </h4>
                                                     </div>
                                                     <div class="panel-collapse collapse show ">
-                                                        <div class="panel-body" style="max-width: 42rem;">
+                                                        <div class="panel-body">
                                                             <p>{{announcement.description}}
                                                             </p>
                                                             <small>{{announcement.date}}</small>
@@ -234,8 +229,7 @@
                                                 </div>
                                                 {% endfor %}
                                             </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <!--/row-->
@@ -263,9 +257,9 @@
                                     <div style="text-align: right;padding: 10px;">
                                         <ul class="list-inline m-0">
                                             <li class="list-inline-item ">
-                                                <button class="btn btn-primary btn-sm" style="border-radius:25px;"
+                                                <a href="{% url 'view_course' course.pk %}"> <button class="btn btn-primary btn-sm" style="border-radius:25px;"
                                                     type="button" data-toggle="tooltip" data-placement="top"
-                                                    title="View"><i class="fa fa-eye"></i></button>
+                                                    title="View"><i class="fa fa-eye"></i></button></a>
                                             </li>
                                             <li class="list-inline-item">
                                                 <a href="{% url 'edit_course' course.pk %}"><button
@@ -330,9 +324,9 @@
 
                                             <ul class="list-inline m-0">
                                                 <li class="list-inline-item ">
-                                                    <button class="btn btn-primary btn-sm" style="border-radius:25px;"
+                                                    <a href="{% url 'view_lesson' lesson.pk %}">  <button class="btn btn-primary btn-sm" style="border-radius:25px;"
                                                         type="button" data-toggle="tooltip" data-placement="top"
-                                                        title="View"><i class="fa fa-eye"></i></button>
+                                                        title="View"><i class="fa fa-eye"></i></button></a>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <a href="{% url 'edit_lesson' lesson.pk %}"><button

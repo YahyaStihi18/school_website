@@ -16,7 +16,7 @@ def index(request):
 
 def classroom(request):
     staff = User.objects.filter(is_staff=True).annotate(total_course=Count('course',distinct=True)).annotate(total_lesson=Count('lesson',distinct=True))
-    teachers = staff#.filter(is_superuser=False)
+    teachers = staff.filter(is_superuser=False)
     courses = Course.objects.all().order_by('date').reverse()
     lessons = Lesson.objects.all().order_by('date').reverse()
     announcements = Announcement.objects.all().order_by('date').reverse()
@@ -29,6 +29,25 @@ def classroom(request):
         'announcements':announcements,
     }
     return render(request,'core/classroom.html',context)
+
+
+def view_profile(request,pk):
+    profile = Profile.objects.get(pk=pk)
+    user = profile.user
+
+    totals = User.objects.filter(username=user).annotate(total_course=Count('course',distinct=True)).annotate(total_lesson=Count('lesson',distinct=True))
+    announcements = Announcement.objects.filter(user=user).order_by('date').reverse()
+    courses = Course.objects.filter(user=user).order_by('date').reverse()
+    lessons = Lesson.objects.filter(user=user).order_by('date').reverse()
+
+    context={
+        'user':user,
+        'courses':courses,
+        'lessons':lessons,
+        'announcements':announcements,
+        'totals':totals,
+        'profile':profile,} 
+    return render (request,'core/view_profile.html',context)
 
 
 def view_course(request,pk):

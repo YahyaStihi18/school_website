@@ -1,0 +1,221 @@
+{% extends 'core/base.html'%}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'profile/profile.css' %}">
+
+<br>
+
+<!--/profile-->
+
+<div class="container">
+
+    <div class="row">
+        <!--profile info-->
+        <div class="col-lg-4">
+            <div class="profile-card-4 z-depth-3">
+                <div class="card">
+
+                    <div class="card-body text-center" style="background-color: #4DBF1C;">
+                        <div class="user-box">
+                            <img src="{{user.profile.image.url}}" alt="user avatar">
+
+                        </div>
+                        <h5 class="mb-1 text-white">{{user.profile.first_name}} {{user.profile.last_name}}</h5>
+                       
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group shadow-none">
+                            <li class="list-group-item">
+                                <div class="list-icon">
+                                    <i class="fa fa-phone-square"></i>
+                                </div>
+                                <div class="list-details">
+                                    <span>0{{user.profile.phone}}</span>
+                                    <small>Mobile Number</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="list-icon">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div class="list-details">
+                                    <span>{{user.email}}</span>
+                                    <small>Email Address</small>
+                                </div>
+                            </li>
+                        </ul>
+                        {% for total in totals %}
+                        <div class="row text-center mt-4">
+                            <div class="col p-2">
+                                <h4 class="mb-1 line-height-5">{{ total.total_course}}</h4>
+                                <small class="mb-0 font-weight-bold">Courses</small>
+                            </div>
+                            <div class="col p-2">
+                                <h4 class="mb-1 line-height-5">{{ total.total_lesson}}</h4>
+                                <small class="mb-0 font-weight-bold">lessons</small>
+                            </div>
+                           
+                        </div>
+                         {% endfor %}
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="javascript:void()" class="btn-social btn-facebook waves-effect waves-light m-1"><i
+                                class="fa fa-facebook"></i></a>
+                        <a href="javascript:void()" class="btn-social btn-google-plus waves-effect waves-light m-1"><i
+                                class="fa fa-google-plus"></i></a>
+                        <a href="javascript:void()"
+                            class="list-inline-item btn-social btn-behance waves-effect waves-light"><i
+                                class="fa fa-behance"></i></a>
+                        <a href="javascript:void()"
+                            class="list-inline-item btn-social btn-dribbble waves-effect waves-light"><i
+                                class="fa fa-dribbble"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/profile info-->
+        <!--profile table-->
+        <div class="col-lg-8">
+            <div class="card z-depth-3">
+                <div class="card-body">
+                    <ul class="nav nav-pills nav-pills-primary nav-justified">
+                        <li class="nav-item">
+                            <a href="javascript:void();" data-target="#profile" data-toggle="pill"
+                                class="nav-link active show"><i class="icon-user"></i> <span
+                                    class="hidden-xs">Profile</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void();" data-target="#course" data-toggle="pill" class="nav-link"><i
+                                    class="icon-note"></i> <span class="hidden-xs">Courses</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i
+                                    class="icon-note"></i> <span class="hidden-xs">lessons</span></a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content p-3">
+                        <div class="tab-pane active show" id="profile">
+                            <h5 class="mb-3">Teacher Profile</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Specialty:</h6>
+                                    <p>
+                                        {{user.profile.specialty}}
+                                    </p>
+                                    <h6>Bio:</h6>
+                                    <p>
+                                        {{user.profile.bio}}
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Classes:</h6>
+                                    <hr>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <h5 class="mt-2 mb-3">
+                                        <a data-toggle="modal" data-target="#exampleModal" href="#" role="button"
+                                            class="float-right"></a>
+                                        Recent Announcements</h5>
+                                    <hr>
+
+                                    
+
+                 
+                                            <div class="panel-group" id="accordion" role="tablist"
+                                                aria-multiselectable="true">
+                                                {% for announcement in announcements %}
+                                                        <h4 class="panel-title" style="background-color: #4DBF1C;">
+                                                            <div class="p-3"
+                                                                style="color: white;height: 3rem;">
+                                                                {{announcement.subject}}
+                                                            </div>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="panel-collapse collapse show "style="background-color: #FBF8F8;" >
+                                                        <div class="panel-body ml-2 p-2" >
+                                                            <p>{{announcement.description}}
+                                                            </p>
+                                                            <small>{{announcement.date}}</small>
+                                                        </div>   
+                                                {% endfor %}
+                                            </div>
+                        
+                                </div>
+                            </div>
+                            <!--/row-->
+                        </div>
+                        <!--/the cources-->
+
+
+                        <div class="tab-pane " id="course">
+                            <h5 class="mt-2 mb-3">   
+                                Courses</h5>
+                            <hr>
+                            <div class="d-flex align-content-start flex-wrap">
+
+                                {% for course in courses %}
+                                <div class="card shadow p-3 mb-3 bg-white"
+                                    style="width:19rem; margin: 1rem;border-radius: 10px;">
+                                    <img class="card-img-top" src="{{course.thumbnail.url}}" alt="Card image cap"
+                                        height="150rem">
+                                    <div class="card-body" style="height: 4rem;">
+                                        <h5 class="card-title">{{course.title}}</h5>
+                                    </div>
+
+                                    <div style="text-align: right;padding: 10px;">
+                                        <ul class="list-inline m-0">
+                                            <li class="list-inline-item ">
+                                                <a href="{% url 'view_course' course.pk %}"> <button class="btn btn-primary btn-sm" style="border-radius:25px;"
+                                                    type="button" data-toggle="tooltip" data-placement="top"
+                                                    title="View"><i class="fa fa-eye"></i></button></a>
+                                            </li>
+
+                                            </ul>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="edit">
+                            <h5 class="mt-2 mb-3">
+                                Lessons</h5>
+                            <hr>
+                            <div>
+                                {% for lesson in lessons %}
+                                <div class="shadow p-1 mb-2 bg-white rounded">
+                                    <div class="d-flex justify-content-between flex-wrap ">
+                                        <div class="ml-2" style="padding-top: 1rem;">
+                                            <h6>{{lesson.title}}</h6>
+                                            <small>{{lesson.date}}</small>
+                                        </div>
+                                        <div style="text-align: right;padding: 10px;">
+
+                                            <ul class="list-inline m-0">
+                                                <li class="list-inline-item ">
+                                                    <a href="{% url 'view_lesson' lesson.pk %}">  <button class="btn btn-primary btn-sm" style="border-radius:25px;"
+                                                        type="button" data-toggle="tooltip" data-placement="top"
+                                                        title="View"><i class="fa fa-eye"></i></button></a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

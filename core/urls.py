@@ -6,7 +6,7 @@ urlpatterns = [
     path('classroom/',classroom,name='classroom'),
     path('classroom/view_course/<int:pk>',view_course,name='view_course'),
     path('classroom/view_lesson/<int:pk>',view_lesson,name='view_lesson'),
-
+    path('classroom/view_profile/<int:pk>',view_profile,name='view_profile'),
 
     path('profile/add_course/',add_course,name='add_course'),
     path('profile/edit_course/<int:pk>/',edit_course,name='edit_course'),
