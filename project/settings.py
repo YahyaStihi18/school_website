@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'core',
     'users',
     'crispy_forms',
+    'django_wysiwyg',
+    'ckeditor',
     
 ]
 
@@ -123,3 +125,5 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'static/core/media/')
+
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"

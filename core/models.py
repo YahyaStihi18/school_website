@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from .validators import validate_file_extension,validate_document_extension
+from ckeditor.fields import RichTextField
+
 
 
 class Course(models.Model):
@@ -19,8 +21,9 @@ class Course(models.Model):
 class Lesson(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
     title = models.CharField(max_length=70)
-    description = models.TextField()
+    description = models.CharField(max_length=700)
     date = models.DateTimeField(auto_now_add=True)
-    document = models.FileField(upload_to='video',validators=[validate_document_extension])
+    document = models.FileField(upload_to='doc',validators=[validate_document_extension],null=True,blank=True)
+    body = RichTextField()
     def __str__(self):
         return self.title

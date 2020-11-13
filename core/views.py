@@ -162,7 +162,7 @@ def delete_lesson(request,pk):
     user = request.user
     lesson = Lesson.objects.get(pk=pk)
     
-    if course.user == user:
+    if lesson.user == user:
         pass
     else:
         raise PermissionDenied

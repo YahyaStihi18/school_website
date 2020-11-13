@@ -8,22 +8,24 @@
 
             <div class="col-lg-8">
                 <h3> Lesson:</h3>
-                <hr><br>
+                <hr>
                 <div class="shadow p-3 mb-5 mt-0 bg-white rounded">
-                    <div class="d-flex justify-content-between flex-wrap ">
-                        <div class="ml-2">
+                    <div class="d-flex justify-content-between flex-wrap mt-3">
+                        <div class="ml-2 ">
                         <h4>Document:</h4>
                         <p style="max-width:20rem;">This document will be downloaded to your device as soon as you press the download button</p>
-                        
+                        {% if lesson.document %}
                         <a class="btn btn-outline-success" href="{{lesson.document.url}}"><span>Download</span></a>
+                        {% else %}
+                        <span> ( No attached files! )</span>
+                        {% endif %}
+
                         </div>
                         <div>
                             <img src="{% static 'img/doc.jpg'%}" class="img-thumbnail" style="max-width: 14rem;">
                         </div>
                     </div>
                 </div>
-
-
             </div>
             <div class="col-lg-4">
                 <div class="c_details_list shadow p-3 mb-5 mt-5 bg-white rounded">
@@ -50,7 +52,15 @@
                 </div>
             </div>
         </div>
+        <div class="shadow p-3 mb-5 bg-white rounded" style="padding-top: 2rem;">
+            <h3> Body:</h3>
+            <hr>
+            <div class="shadow-none p-3 mb-5 bg-light rounded"style="color:black;">
+            {{lesson.body|safe}}
+            </div>
+        </div>
     </div>
+    
 </section>
 
 {% endblock content %}
