@@ -69,7 +69,7 @@
                     <div class="card-body text-center" style="background-color: #4DBF1C;">
                         <div class="user-box">
                             {%if user.profile.image %}
-                            <img src="{{user.profile.image.url}}" alt="user avatar">
+                            <img height="110rem" src="{{user.profile.image.url}}" alt="user avatar">
                             {% else %}
                             <img src="{% static 'img/avatar.png'%}" alt="user avatar">
                             {% endif %}
@@ -84,8 +84,9 @@
                                     <i class="fa fa-phone-square"></i>
                                 </div>
                                 <div class="list-details">
-                                    <span>0{{user.profile.phone}}</span>
                                     <small>Mobile Number</small>
+                                    <span>0{{user.profile.phone}}</span>
+                                    
                                 </div>
                             </li>
                             <li class="list-group-item">
@@ -93,8 +94,8 @@
                                     <i class="fa fa-envelope"></i>
                                 </div>
                                 <div class="list-details">
-                                    <span>{{user.email}}</span>
                                     <small>Email Address</small>
+                                    <span>{{user.email}}</span>
                                 </div>
                             </li>
                         </ul>

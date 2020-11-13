@@ -73,12 +73,12 @@ def add_course(request):
         'form':form,
     }
     if request.method == 'POST':
-            form = CourseForm(request.POST,request.FILES)
-            if form.is_valid():
-                instance = form.save(commit=False)
-                instance.user = request.user
-                instance.save()
-                
+        form = CourseForm(request.POST,request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            return redirect('profile')
     return render (request,'core/add_course.html',context)
 
 @login_required

@@ -1,4 +1,3 @@
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,6 +28,7 @@ INSTALLED_APPS = [
     'core',
     'users',
     'crispy_forms',
+    
 ]
 
 MIDDLEWARE = [
@@ -122,4 +122,4 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'static/core/images/')
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/core/media/')
