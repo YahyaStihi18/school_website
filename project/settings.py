@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -115,7 +116,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'profile'
 LOGIN_URL = 'login'
 
-import os
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
@@ -124,6 +124,6 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'static/core/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/core/images/')
 
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
