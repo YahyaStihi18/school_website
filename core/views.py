@@ -8,8 +8,8 @@ from users.models import Profile
 from users.models import Announcement
 from django.contrib.auth.models import User
 from django.db.models import Count
-
-
+from django.db.models import Q
+from django.views.generic import ListView
 
 def index(request):
     return render(request,'core/index.html')
@@ -173,3 +173,23 @@ def delete_lesson(request,pk):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     else:
         raise PermissionDenied()
+
+
+def searchview(request):
+    word = request.GET.get('q')  
+
+    lesson_result = Lesson.objects.filter(Q(title__icontains=word))
+    lesson_result_count = lesson_result.count()
+    course_result = Course.objects.filter(Q(title__icontains=word))
+    course_result_count = course_result.count()
+    search_reasult_count = lesson_result_count + course_result_count
+
+
+    context = {
+            'lesson_result':lesson_result,
+            'course_result':course_result,
+            'lesson_result_count':lesson_result_count,
+            'course_result_count':course_result_count,
+            'search_reasult_count':search_reasult_count,
+            }
+    return render(request,'core/search_view.html',context)

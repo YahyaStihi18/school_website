@@ -1,0 +1,134 @@
+{% extends 'core/base.html'%}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'profile/profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/classroom.css' %}">
+
+<section class="blog_area" style="margin-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog_left_sidebar">
+                    <div class="row blog_item">
+
+                        <!-- Section: Live preview -->
+                        <div style="min-width: 100%;">
+                            <section>
+
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
+                                            role="tab" aria-controls="home" aria-selected="false">Courses 
+                                            <span style="background-color:red;border-radius:100px;color: white;font-size: 12px;border:solid red;margin-left: 0.5rem;">{{course_result_count}}</span></a>
+                                    </li>
+
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link " id="contact-tab" data-toggle="tab" href="#contact"
+                                            role="tab" aria-controls="contact" aria-selected="true">Lessons  
+                                            <span style="background-color:red;border-radius:100px;color: white;font-size: 12px;border:solid red;margin-left: 0.5rem;">{{lesson_result_count}}</span></a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade  active show" id="home" role="tabpanel"
+                                        aria-labelledby="home-tab">
+                                        <div class="d-flex align-content-start flex-wrap mt-3">
+                                            {% for course in course_result %}
+                                            <div class="shadow p-1 m-3 bg-white rounded">
+                                                <div class="card" style="width: 21rem;">
+                                                    <img class="card-img-top" src="{{course.thumbnail.url}}"
+                                                        alt="Card image cap" style="height: 9rem;">
+                                                    <img height="65rem" class="fb-image-profile"
+                                                        src="{{course.user.profile.image.url}}">
+
+                                                    <div class="card-body " style="text-align: center; height:4rem;">
+                                                        <a class="a" href="{% url 'view_course' course.pk %}">
+                                                            <h5>{{course.title}}</h5>
+                                                        </a>
+                                                    </div>
+                                                    <div class="ml-3 mb-1">
+                                                        <small> {{course.date}}| by: {{ course.user.profile.first_name}}
+                                                            {{ course.user.profile.last_name}}</small>
+                                                        <a href="{% url 'view_course' course.pk %}"> <button
+                                                                class="btn btn-primary btn-sm mr-2"
+                                                                style="border-radius:25px; float: right;" type="button"
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                title="View"><i class="fa fa-eye"></i></button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade " id="contact" role="tabpanel"
+                                        aria-labelledby="contact-tab">
+                                        <div class="mt-3">
+                                            {% for lesson in lesson_result %}
+                                            <div class="shadow p-1 mb-2 bg-white rounded">
+                                                <div class="d-flex justify-content-between flex-wrap ">
+                                                    <div class="ml-2" style="padding-top: 1rem;">
+                                                        <h6>{{lesson.title}}</h6>
+                                                        <small>{{lesson.date}} | by: {{lesson.user.profile.first_name}}
+                                                            {{lesson.user.profile.last_name}}</small>
+                                                    </div>
+                                                    <div style="text-align: right;padding: 10px;">
+
+                                                        <ul class="list-inline m-0">
+                                                            <li class="list-inline-item ">
+                                                                <a href="{% url 'view_lesson' lesson.pk %}"><button
+                                                                        class="btn btn-primary btn-sm"
+                                                                        style="border-radius:25px;" type="button"
+                                                                        data-toggle="tooltip" data-placement="top"
+                                                                        title="View"><i
+                                                                            class="fa fa-eye"></i></button></a>
+                                                            </li>
+                                                        </ul>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </section>
+                        </div>
+                        <!-- Section: Live preview -->
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        <form action="{% url 'search' %}" method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" name="q" required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i
+                                            class="lnr lnr-magnifier"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </form>
+                        <div class="br">
+                            
+                        </div>
+                        <h5 style="margin: 1rem;">search returned with "{{search_reasult_count}}" results</h5>
+                    </aside>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================Blog Area =================-->
+{% endblock content %}

@@ -6,7 +6,6 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'profile/profile.css' %}">
-
 <link rel="stylesheet" href="{% static 'css/classroom.css' %}">
 
 <section class="blog_area" style="margin-top: 10px;">
@@ -44,20 +43,25 @@
                                                 <div class="profile-card-4 z-depth-3">
                                                     <div class="card">
                                                         <a href="{% url 'view_profile' teacher.profile.pk %}">
-                                                            <div class="card-body text-center profile" style="height: 14rem;">
-                                                            <div class="user-box">
-                                                                {%if teacher.profile.image %}
-                                                                <img height="110rem" src="{{teacher.profile.image.url}}"
-                                                                    alt="user avatar">
-                                                                {% else %}
-                                                                <img src="{% static 'img/avatar.png'%}"
-                                                                    alt="user avatar">
-                                                                {% endif %}
+                                                            <div class="card-body text-center profile"
+                                                                style="height: 14rem;">
+                                                                <div class="user-box">
+                                                                    {%if teacher.profile.image %}
+                                                                    <img height="110rem"
+                                                                        src="{{teacher.profile.image.url}}"
+                                                                        alt="user avatar">
+                                                                    {% else %}
+                                                                    <img src="{% static 'img/avatar.png'%}"
+                                                                        alt="user avatar">
+                                                                    {% endif %}
+                                                                </div>
+                                                                <h5 class="mb-1 text-white">
+                                                                    {{teacher.profile.first_name}}
+                                                                    {{teacher.profile.last_name}}</h5>
+                                                                <h6 class="text-light">{{ teacher.profile.specialty }}
+                                                                </h6>
                                                             </div>
-                                                            <h5 class="mb-1 text-white">{{teacher.profile.first_name}}
-                                                                {{teacher.profile.last_name}}</h5>
-                                                            <h6 class="text-light">{{ teacher.profile.specialty }}</h6>
-                                                        </div></a>
+                                                        </a>
                                                         <div class="card-body">
                                                             <div class="row text-center mt-2">
                                                                 <div class="col p-2">
@@ -107,10 +111,11 @@
                                                     <div class="ml-3 mb-1">
                                                         <small> {{course.date}}| by: {{ course.user.profile.first_name}}
                                                             {{ course.user.profile.last_name}}</small>
-                                                            <a href="{% url 'view_course' course.pk %}"> <button class="btn btn-primary btn-sm mr-2"
-                                                            style="border-radius:25px; float: right;" type="button"
-                                                            data-toggle="tooltip" data-placement="top" title="View"><i
-                                                                class="fa fa-eye"></i></button></a>
+                                                        <a href="{% url 'view_course' course.pk %}"> <button
+                                                                class="btn btn-primary btn-sm mr-2"
+                                                                style="border-radius:25px; float: right;" type="button"
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                title="View"><i class="fa fa-eye"></i></button></a>
                                                     </div>
 
                                                 </div>
@@ -133,10 +138,12 @@
 
                                                         <ul class="list-inline m-0">
                                                             <li class="list-inline-item ">
-                                                                <a href="{% url 'view_lesson' lesson.pk %}"><button class="btn btn-primary btn-sm"
-                                                                    style="border-radius:25px;" type="button"
-                                                                    data-toggle="tooltip" data-placement="top"
-                                                                    title="View"><i class="fa fa-eye"></i></button></a>
+                                                                <a href="{% url 'view_lesson' lesson.pk %}"><button
+                                                                        class="btn btn-primary btn-sm"
+                                                                        style="border-radius:25px;" type="button"
+                                                                        data-toggle="tooltip" data-placement="top"
+                                                                        title="View"><i
+                                                                            class="fa fa-eye"></i></button></a>
                                                             </li>
                                                         </ul>
 
@@ -160,12 +167,15 @@
             <div class="col-lg-4">
                 <div class="blog_right_sidebar">
                     <aside class="single_sidebar_widget search_widget">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search Posts">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
-                            </span>
-                        </div><!-- /input-group -->
+                        <form action="{% url 'search' %}" method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" name="q" required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i
+                                            class="lnr lnr-magnifier"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </form>
                         <div class="br"></div>
                     </aside>
 
@@ -192,4 +202,3 @@
 </section>
 <!--================Blog Area =================-->
 {% endblock content %}
-

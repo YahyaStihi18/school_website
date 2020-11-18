@@ -16,5 +16,6 @@ urlpatterns = [
     path('profile/edit_lesson/<int:pk>/',edit_lesson,name='edit_lesson'),
     path('profile/delete_lesson/<int:pk>/',delete_lesson,name='delete_lesson'),
 
+    path('search/', searchview, name="search"),  
 
 ]

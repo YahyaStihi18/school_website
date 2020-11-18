@@ -116,14 +116,15 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'profile'
 LOGIN_URL = 'login'
 
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'static/core/images/')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+  
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL ='/media/'
 
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
