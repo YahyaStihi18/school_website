@@ -14,6 +14,9 @@ from django.views.generic import ListView
 def index(request):
     return render(request,'core/index.html')
 
+def about(request):
+    return render(request,'core/about.html')
+
 def classroom(request):
     staff = User.objects.filter(is_staff=True).annotate(total_course=Count('course',distinct=True)).annotate(total_lesson=Count('lesson',distinct=True))
     teachers = staff.filter(is_superuser=False)
